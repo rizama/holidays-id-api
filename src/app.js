@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const middlewares = require('./middlewares');
 const api = require('./api');
+const controller = require("./api/controller");
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.get('/', (req, res) => {
     message: 'Simple API Starter'
   });
 });
+
+app.get('/index', controller.index);
 
 app.use('/api/v1', api);
 
