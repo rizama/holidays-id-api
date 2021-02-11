@@ -17,13 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Simple API Starter'
-  });
-});
-
-app.get('/index', controller.index);
+app.get('/', controller.index);
 
 app.use('/api/v1', api);
 
