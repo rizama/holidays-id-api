@@ -111,3 +111,18 @@ exports.axiosPost = async (url, body) => {
     return (error);
   }
 };
+
+  
+exports.jsonResponse = (res, data) => {
+  res.json({
+      status: true,
+      data,
+  });
+};
+
+exports.errorJson = (res, error, status = 500) => {
+  res.status(status).json({
+      status: false,
+      error: `Something went wrong: ${error}`,
+  });
+};
