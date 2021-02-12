@@ -22,6 +22,8 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.2.5",
+    "express-slow-down": "^1.4.0",
     "helmet": "^4.2.0",
     "joi": "^17.3.0",
     "modern-random-ua": "^1.0.3",
