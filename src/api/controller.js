@@ -17,10 +17,10 @@ module.exports = {
             maintainer: "Rizky Sam Pratama <rizkysampratama@gmail.com>",
             source: "https://github.com/rizama/holidays-id-api",
             public_holiday: {
-                endpoint: "/holiday/:year",
+                endpoint: "/holidays/:year",
                 description: "Show Indonesia calendar public holidays by year.",
                 note: "Available 2018-2024",
-                example: fullUrl + "public/2021",
+                example: fullUrl + "holidays/2021",
             },
         });
     },
