@@ -1,11 +1,13 @@
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
-const { jsonResponse, errorJson, convertMonth, convertDay } = require("../utils");
 const userAgent = require("user-agents");
 const moment = require("moment");
 require("moment-timezone");
+const { jsonResponse, errorJson, convertMonth, convertDay } = require("../utils");
 const availableYear = ['2018', '2019', '2020', '2021', '2022', '2023', '2024'];
 
+let cacheData;
+let cacheTime;
 
 module.exports = {
     index: (req, res) => {
@@ -15,7 +17,7 @@ module.exports = {
             maintainer: "Rizky Sam Pratama <rizkysampratama@gmail.com>",
             source: "https://github.com/rizama/holidays-id-api",
             public_holiday: {
-                endpoint: "/public/:year",
+                endpoint: "/holiday/:year",
                 description: "Show Indonesia calendar public holidays by year.",
                 note: "Available 2018-2024",
                 example: fullUrl + "public/2021",
@@ -24,6 +26,11 @@ module.exports = {
     },
     holiday: async (req, res) => {
         try {
+            // Memori cache
+            if (cacheTime && cacheTime > Date.now() - 60 * 1000) {
+                return res.json(cacheData);
+            }
+
             const browser = await puppeteer.launch({
                 headless: true,
                 defaultViewport: null,
@@ -113,10 +120,13 @@ module.exports = {
                     }
                 }
             });
-            
+
             results.pop();
 
             await browser.close();
+
+            cacheData = results;
+            cacheTime = Date.now();
 
             return jsonResponse(res, results);
 
