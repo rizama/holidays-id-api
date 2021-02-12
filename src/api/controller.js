@@ -28,7 +28,7 @@ module.exports = {
         try {
             // Memori cache
             if (cacheTime && cacheTime > Date.now() - 60 * 1000) {
-                return res.json(cacheData);
+                return jsonResponse(res, cacheData);
             }
 
             const browser = await puppeteer.launch({
