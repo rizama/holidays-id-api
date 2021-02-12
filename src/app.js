@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', controller.index);
+app.get('/holiday/:year', controller.holiday);
 
 app.use('/api/v1', api);
 
