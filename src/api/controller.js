@@ -40,7 +40,7 @@ module.exports = {
             const year = req.params.year;
             if (!availableYear.includes(year)) {
                 return errorJson(res, "Sorry, year not available.", 400);
-            }
+            } 
             const page = await browser.newPage();
             await page.setUserAgent(userAgent.toString());
             await page.goto(`${process.env.BASE_URL}/${year}-dates`);
