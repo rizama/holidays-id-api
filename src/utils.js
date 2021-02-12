@@ -126,3 +126,36 @@ exports.errorJson = (res, error, status = 500) => {
       error: `Something went wrong: ${error}`,
   });
 };
+
+exports.convertMonth = (month) => {
+  const months = {
+    jan: "January",
+    feb: "February",
+    mar: "March",
+    apr: "April",
+    may: "May",
+    jun: "June",
+    jul: "July",
+    aug: "August",
+    sep: "September",
+    oct: "October",
+    nov: "November",
+    dec: "December",
+  }
+
+  return months[month.toLowerCase()];
+}
+
+exports.convertDay = (day) => {
+  const days = {
+    sun: "Sunday",
+    mon: "Monday",
+    tue: "Tuesday",
+    wed: "Wednesday",
+    thu: "Thursday",
+    fri: "Friday",
+    sat: "Saturday",
+  }
+
+  return days[day.toLowerCase()];
+}
