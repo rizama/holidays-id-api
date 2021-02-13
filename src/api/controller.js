@@ -3,7 +3,7 @@ const cheerio = require("cheerio");
 const userAgent = require("user-agents");
 const moment = require("moment");
 require("moment-timezone");
-const { jsonResponse, errorJson, convertMonth, convertDay } = require("../utils");
+const { jsonResponse, errorJson, convertMonth, convertDay, requestGet } = require("../utils");
 const availableYear = ['2018', '2019', '2020', '2021', '2022', '2023', '2024'];
 
 let cacheData;
@@ -31,21 +31,12 @@ module.exports = {
                 return jsonResponse(res, cacheData);
             }
 
-            const browser = await puppeteer.launch({
-                args: [
-                    '--no-sandbox',
-                    '--disable-setuid-sandbox',
-                ]
-            });
             const year = req.params.year;
             if (!availableYear.includes(year)) {
                 return errorJson(res, "Sorry, year not available.", 400);
             } 
-            const page = await browser.newPage();
-            await page.setUserAgent(userAgent.toString());
-            await page.goto(`${process.env.BASE_URL}/${year}-dates`);
-            // await page.waitForSelector('.publicholidays.phgtable');
-            const content = await page.content();
+
+            const content = await requestGet(`${process.env.BASE_URL}/${year}-dates`);
             const $ = cheerio.load(content);
             const results = [];
             $('#row-inner-travel > article > div.page__content > table > tbody').children('tr').each((index, el) => {
@@ -120,8 +111,6 @@ module.exports = {
             });
 
             results.pop();
-
-            await browser.close();
 
             cacheData = results;
             cacheTime = Date.now();
