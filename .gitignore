@@ -74,3 +74,6 @@ typings/
 
 # zip file
 *.zip
+
+#sftp
+*.vscode
