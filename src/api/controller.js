@@ -31,7 +31,7 @@ module.exports = {
             
             // Memori cache
             let keysCacheData = Object.keys(cacheData);
-            if (cacheTime && (cacheTime > Date.now() - 60 * 1000) && keysCacheData.includes(year)) {
+            if (cacheTime && (cacheTime > Date.now() - 30 * 1000) && keysCacheData.includes(year)) {
                 return jsonResponse(res, cacheData[year]);
             }
             
