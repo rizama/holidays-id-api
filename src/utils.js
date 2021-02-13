@@ -61,7 +61,7 @@ exports.requestGet = (url) => {
   const options = {
     method: 'GET',
     url,
-    timeout: 30000,
+    timeout: 1 * 60 * 1000,
     json: true
   };
 
