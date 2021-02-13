@@ -6,7 +6,7 @@ require("moment-timezone");
 const { jsonResponse, errorJson, convertMonth, convertDay, requestGet } = require("../utils");
 const availableYear = ['2018', '2019', '2020', '2021', '2022', '2023', '2024'];
 
-let cacheData;
+let cacheData = {};
 let cacheTime;
 
 module.exports = {
@@ -26,12 +26,15 @@ module.exports = {
     },
     holiday: async (req, res) => {
         try {
-            // Memori cache
-            if (cacheTime && cacheTime > Date.now() - 60 * 1000) {
-                return jsonResponse(res, cacheData);
-            }
-
+            
             const year = req.params.year;
+            
+            // Memori cache
+            let keysCacheData = Object.keys(cacheData);
+            if (cacheTime && (cacheTime > Date.now() - 60 * 1000) && keysCacheData.includes(year)) {
+                return jsonResponse(res, cacheData[year]);
+            }
+            
             if (!availableYear.includes(year)) {
                 return errorJson(res, "Sorry, year not available.", 400);
             } 
@@ -112,7 +115,7 @@ module.exports = {
 
             results.pop();
 
-            cacheData = results;
+            cacheData[year] = results;
             cacheTime = Date.now();
 
             return jsonResponse(res, results);
