@@ -1,6 +1,7 @@
 const fs = require('fs');
 const request = require('request');
 const axios = require('axios');
+const UserAgent = require("user-agents");
 
 exports.sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -35,6 +36,7 @@ exports.removeEmptyOrNull = (array) => {
 };
 
 exports.requestPost = (url, data) => {
+
   const options = {
     method: 'POST',
     url,
@@ -58,12 +60,19 @@ exports.requestPost = (url, data) => {
 };
 
 exports.requestGet = (url) => {
+  const userAgent = new UserAgent();
+
   const options = {
     method: 'GET',
     url,
     timeout: 1 * 60 * 1000,
-    json: true
+    json: true,
+    headers: {
+      'User-Agent': userAgent.toString()
+    }
   };
+
+  console.log(options);
 
   return new Promise((resolve, reject) => {
     request(options, (error, response, body) => {
@@ -112,18 +121,18 @@ exports.axiosPost = async (url, body) => {
   }
 };
 
-  
+
 exports.jsonResponse = (res, data) => {
   res.json({
-      status: true,
-      data,
+    status: true,
+    data,
   });
 };
 
 exports.errorJson = (res, error, status = 500) => {
   res.status(status).json({
-      status: false,
-      error: `Something went wrong: ${error}`,
+    status: false,
+    error: `Something went wrong: ${error}`,
   });
 };
 
@@ -141,10 +150,10 @@ exports.convertMonth = (month) => {
     oct: "October",
     nov: "November",
     dec: "December",
-  }
+  };
 
   return months[month.toLowerCase()];
-}
+};
 
 exports.convertDay = (day) => {
   const days = {
@@ -155,7 +164,7 @@ exports.convertDay = (day) => {
     thu: "Thursday",
     fri: "Friday",
     sat: "Saturday",
-  }
+  };
 
   return days[day.toLowerCase()];
-}
+};
