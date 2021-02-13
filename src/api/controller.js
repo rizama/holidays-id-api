@@ -1,6 +1,4 @@
-const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
-const userAgent = require("user-agents");
 const moment = require("moment");
 require("moment-timezone");
 const { jsonResponse, errorJson, convertMonth, convertDay, requestGet } = require("../utils");
@@ -26,18 +24,18 @@ module.exports = {
     },
     holiday: async (req, res) => {
         try {
-            
+
             const year = req.params.year;
-            
+
             // Memori cache
             let keysCacheData = Object.keys(cacheData);
             if (cacheTime && (cacheTime > Date.now() - 30 * 1000) && keysCacheData.includes(year)) {
                 return jsonResponse(res, cacheData[year]);
             }
-            
+
             if (!availableYear.includes(year)) {
                 return errorJson(res, "Sorry, year not available.", 400);
-            } 
+            }
 
             const content = await requestGet(`${process.env.BASE_URL}/${year}-dates`);
             const $ = cheerio.load(content);
@@ -72,7 +70,9 @@ module.exports = {
                                 body.date = date;
                                 body.day = day;
                                 body.month = month;
+                                body.year = year;
                                 body.holiday = title;
+                                body.datetime_ms = moment(`${date} ${month} ${year}`, "DD MMMM YYYY").valueOf();
 
                                 results.push(body);
                             }
@@ -90,7 +90,9 @@ module.exports = {
                             body.date = date;
                             body.day = day;
                             body.month = month;
+                            body.year = year;
                             body.holiday = title;
+                            body.datetime_ms = moment(`${date} ${month} ${year}`, "DD MMMM YYYY").valueOf();
 
                             results.push(body);
                         }
@@ -106,7 +108,9 @@ module.exports = {
                         body.date = date;
                         body.day = day;
                         body.month = month;
+                        body.year = year;
                         body.holiday = holiday;
+                        body.datetime_ms = moment(`${date} ${month} ${year}`, "DD MMMM YYYY").valueOf();
 
                         results.push(body);
                     }
