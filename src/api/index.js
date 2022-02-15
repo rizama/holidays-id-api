@@ -5,9 +5,9 @@ const loves = require('./loves');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.json({
-    message: 'API - 👋🌏'
-  });
+    res.json({
+        message: 'API - 👋🌏'
+    });
 });
 
 router.use('/loves', loves);
