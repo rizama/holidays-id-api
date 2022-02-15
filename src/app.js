@@ -20,14 +20,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const limiter = rateLimit({
-  windowMs: 30 * 1000,
-  max: 20
+    windowMs: 30 * 1000,
+    max: 20
 });
 
 const speedLimiter = slowDown({
-  windowMs: 30 * 1000,
-  delayAfter: 1,
-  delayMs: 500
+    windowMs: 30 * 1000,
+    delayAfter: 1,
+    delayMs: 500
 });
 
 app.get('/', controller.index);

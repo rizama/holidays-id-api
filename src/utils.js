@@ -71,8 +71,6 @@ exports.requestGet = (url) => {
         },
     };
 
-    console.log(options);
-
     return new Promise((resolve, reject) => {
         request(options, (error, response, body) => {
             if (error) {

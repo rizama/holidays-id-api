@@ -13,5 +13,6 @@ module.exports = {
         indent: ['error', 4],
         'no-plusplus': 'off',
         'no-restricted-syntax': 'off',
+        'no-unused-vars': 'warning',
     },
 };
