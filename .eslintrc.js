@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 module.exports = {
     env: {
         jest: true,
@@ -9,5 +10,8 @@ module.exports = {
         'no-param-reassign': 0,
         'no-return-assign': 0,
         camelcase: 0,
-    }
+        indent: ['error', 4],
+        'no-plusplus': 'off',
+        'no-restricted-syntax': 'off',
+    },
 };
