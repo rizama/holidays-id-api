@@ -27,7 +27,7 @@ module.exports = {
                 endpoint: '/holidays/:year',
                 description: 'Show Indonesia calendar public holidays by year.',
                 note: 'Available 2018-2024',
-                example: `${fullUrl}holidays/2021`,
+                example: `${fullUrl}holidays/2022`,
             },
         });
     },
@@ -167,4 +167,7 @@ module.exports = {
             return errorJson(res, error);
         }
     },
+    schoolHoloday: async () => {
+        return 'Hello world';
+    }
 };
