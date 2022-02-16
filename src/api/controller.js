@@ -29,6 +29,12 @@ module.exports = {
                 note: 'Available 2018-2024',
                 example: `${fullUrl}holidays/2022`,
             },
+            school_holiday: {
+                endpoint: '/school-holidays/:year/:city',
+                description: '',
+                note: 'Available 2018-2024',
+                example: `${fullUrl}school-holidays/2022/bandung`,
+            },
         });
     },
     holiday: async (req, res) => {
