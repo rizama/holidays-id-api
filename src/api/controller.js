@@ -173,7 +173,15 @@ module.exports = {
             return errorJson(res, error);
         }
     },
-    schoolHoloday: async () => {
-        return 'Hello world';
-    }
+    schoolHoliday: (req, res) => {
+        try {
+            const { province } = req.params;
+            const content = await requestGet(
+                `${process.env.BASE_URL}/school-holidays/${province}/`
+            );
+            const $ = cheerio.load(content);
+        } catch (error) {
+            console.log(error);
+        }
+    },
 };
