@@ -173,13 +173,35 @@ module.exports = {
             return errorJson(res, error);
         }
     },
-    schoolHoliday: (req, res) => {
+    schoolHoliday: async (req, res) => {
         try {
             const { province } = req.params;
+            const fullUrl = `${req.protocol}://${req.get('host')}${
+                req.originalUrl
+            }`;
+
+
             const content = await requestGet(
-                `${process.env.BASE_URL}/school-holidays/${province}/`
+                `${process.env.BASE_URL}/school-holidays/`
             );
+
             const $ = cheerio.load(content);
+
+            const tablesHtml = $('#tablepress-65 > tbody > tr');
+
+            const results = [];
+            for (const tableHtml of tablesHtml) {
+                const name = $(tableHtml).text().trim();
+                const params = $(tableHtml).find('a').attr('href')?.split('/')[4];
+                const detailUrl = `${fullUrl}/${params}`
+
+                results.push({
+                    name, params, detailUrl
+                }) 
+            }
+
+            return jsonResponse(res, results);
+
         } catch (error) {
             console.log(error);
         }
