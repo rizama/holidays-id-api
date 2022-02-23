@@ -32,6 +32,7 @@ const speedLimiter = slowDown({
 
 app.get('/', controller.index);
 app.get('/holidays/:year', limiter, controller.holiday);
+app.get('/schoolHolidays/', limiter, controller.schoolHoliday);
 
 app.use('/api/v1', api);
 
