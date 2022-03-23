@@ -35,6 +35,7 @@ module.exports = {
                 note: 'Available 2018-2024',
                 example: `${fullUrl}school-holidays/2022/bandung`,
             },
+            version: 1,
         });
     },
     holiday: async (req, res) => {
