@@ -9,7 +9,7 @@ const {
     requestGet,
 } = require('../utils');
 
-const availableYear = ['2018', '2019', '2020', '2021', '2022', '2023', '2024'];
+const availableYear = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'];
 
 const cacheData = {};
 let cacheTime;
@@ -26,13 +26,13 @@ module.exports = {
             public_holiday: {
                 endpoint: '/holidays/:year',
                 description: 'Show Indonesia calendar public holidays by year.',
-                note: 'Available 2018-2024',
+                note: 'Available 2018-2026',
                 example: `${fullUrl}holidays/2022`,
             },
             school_holiday: {
                 endpoint: '/school-holidays/:year/:city',
                 description: '',
-                note: 'Available 2018-2024',
+                note: 'Available 2018-2026',
                 example: `${fullUrl}school-holidays/2022/bandung`,
             },
         });
